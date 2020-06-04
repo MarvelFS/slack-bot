@@ -13,7 +13,7 @@ npm install
 yarn init
 ```
 
-##Example:
+## Example:
 ```
 PORT=8080
 SLACK_HOOK=
@@ -28,4 +28,9 @@ yarn start:dev
 yarn start:debug
 
 yarn start:prod
+```
+
+# Genrate API Module
+```
+yarn generate-module
 ```
