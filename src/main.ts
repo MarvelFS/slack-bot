@@ -10,6 +10,10 @@ import * as compression from 'compression';
 import * as helmet from 'helmet';
 import * as rateLimit from 'express-rate-limit';
 import { NestExpressApplication } from '@nestjs/platform-express';
+import { createEventAdapter } from '@slack/events-api';
+
+const slackSigningSecret = '96ffc09562accb9ad095afb6918cfc02';
+const slackEvents: any = createEventAdapter(slackSigningSecret);
 
 async function bootstrap() {
   try {
@@ -19,27 +23,18 @@ async function bootstrap() {
       cors: true,
     });
 
+    app.use('/', slackEvents.requestListener());
+    slackEvents.on('message', (event) => {
+      console.log(
+        `Received a message event: user ${event.user} in channel ${event.channel} says ${event.text}`,
+      );
+    });
+
     // body parsers
     app.use(bodyParser.json({ limit: '2mb' }));
-    app.use(
-      bodyParser.urlencoded({
-        limit: '2mb',
-        extended: true,
-        parameterLimit: 2000,
-      }),
-    );
-
-    // Compression
-    app.use(compression());
+    app.use(bodyParser.urlencoded({}));
 
     // Security
-    app.use(helmet());
-    app.use(
-      rateLimit({
-        windowMs: 15 * 60 * 1000, // 15 minutes
-        max: 100, // limit each IP to 100 requests per windowMs
-      }),
-    );
 
     if (NODE_ENV === 'development') {
       app.enableCors();
