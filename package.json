@@ -9,25 +9,10 @@
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
+    "init": "cp .env.example .env",
     "start:dev": "NODE_ENV=development nest start --watch",
-    "start:debug": "nest start --debug --watch",
     "start:prod": "NODE_ENV=production node dist/main",
-    "lint": "eslint src --ext .ts --fix",
-    "test": "NODE_ENV=development jest",
-    "test:watch": "jest --watch",
-    "test:cov": "jest --coverage",
-    "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./test/jest-e2e.json",
-    "db:start": "pg_ctl -D /usr/local/var/postgres start",
-    "db:stop": "pg_ctl -D /usr/local/var/postgres stop -s -m fast",
-    "deploy:now": "yarn prebuild && yarn build && npx now",
-    "deploy:heroku": "yarn prebuild && yarn build && git push heroku master",
-    "compodoc": "npx compodoc -p tsconfig.json -s",
-    "docker:up": "docker-compose -p nestjs-api-boilerplate up -d",
-    "docker:down": "docker-compose -p nestjs-api-boilerplate down",
-    "seed:config": "ts-node -r tsconfig-paths/register ./node_modules/typeorm-seeding/dist/cli.js config -r src/database -n typeorm.config.ts",
-    "seed:run": "ts-node -r tsconfig-paths/register ./node_modules/typeorm-seeding/dist/cli.js seed -r src/database -n typeorm.config.ts",
-    "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js"
+    "lint": "eslint src --ext .ts --fix"
   },
   "dependencies": {
     "@nestjs/common": "^7.1.1",
@@ -97,22 +82,5 @@
     "hooks": {
       "pre-commit": "yarn format && yarn lint"
     }
-  },
-  "jest": {
-    "moduleFileExtensions": [
-      "js",
-      "json",
-      "ts"
-    ],
-    "rootDir": "src",
-    "testRegex": ".spec.ts$",
-    "transform": {
-      "^.+\\.(t|j)s$": "ts-jest"
-    },
-    "collectCoverageFrom": [
-      "**/*.(t|j)s"
-    ],
-    "coverageDirectory": "../coverage",
-    "testEnvironment": "node"
   }
 }
