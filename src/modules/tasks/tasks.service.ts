@@ -18,7 +18,8 @@ export class TasksService {
 
   // @Interval(5000)
   // handleInterval() {
-  //   this.logger.debug('Called every 5 seconds');
+  //   this.slackService.sendMessage('Hello, Mày bị ngáo à').subscribe();
+  //   this.logger.debug('Called once after 5 seconds');
   // }
 
   @Timeout(5000)

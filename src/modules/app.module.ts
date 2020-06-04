@@ -7,11 +7,18 @@ import { APP_FILTER } from '@nestjs/core';
 import { HttpErrorFilter } from '@/shared/http-error.filter';
 import { AppController } from './app.controller';
 import { TasksModule } from './tasks/tasks.module';
+import { CatsModule } from './cats/cats.module';
+import { typeOrmConfig } from '../database/typeorm.config';
 // import here
 
 @Module({
-  imports: [TasksModule],
+  imports: [TypeOrmModule.forRoot(typeOrmConfig), TasksModule, CatsModule],
   controllers: [AppController],
-  providers: [],
+  providers: [
+    {
+      provide: APP_FILTER,
+      useClass: HttpErrorFilter,
+    },
+  ],
 })
 export class AppModule {}
