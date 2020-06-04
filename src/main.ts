@@ -6,7 +6,6 @@ import { Logger, InternalServerErrorException } from '@nestjs/common';
 import * as bodyParser from 'body-parser';
 import { NODE_ENV, PORT } from '@/environments';
 import { setupSwagger } from '@/swagger';
-// import { Transport } from '@nestjs/microservices';
 import * as compression from 'compression';
 import * as helmet from 'helmet';
 import * as rateLimit from 'express-rate-limit';
@@ -14,15 +13,9 @@ import { NestExpressApplication } from '@nestjs/platform-express';
 
 async function bootstrap() {
   try {
-    // const httpsOptions = {
-    // 	key: fs.readFileSync('ssl/private.key'),
-    // 	cert: fs.readFileSync('ssl/certificate.crt'),
-    // 	ca: fs.readFileSync('ssl/ca_bundle.crt'),
-    // }
     const logger = new Logger('bootstrap');
 
     const app = await NestFactory.create<NestExpressApplication>(AppModule, {
-      // httpsOptions,
       cors: true,
     });
 
