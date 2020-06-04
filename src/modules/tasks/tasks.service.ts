@@ -23,9 +23,7 @@ export class TasksService {
 
   @Timeout(5000)
   handleTimeout() {
-    this.slackService
-      .sendMessage('Hello, chào buổi sáng, anh đẹp trai dễ thương')
-      .subscribe();
+    this.slackService.sendMessage('Hello, Mày bị ngáo à').subscribe();
     this.logger.debug('Called once after 5 seconds');
   }
 }
